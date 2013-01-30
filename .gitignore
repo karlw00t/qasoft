@@ -1,2 +1,7 @@
 website.db
-*.pyc`
+*.pyc
+*~
+
+bin
+include
+lib
