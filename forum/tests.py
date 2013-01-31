@@ -1,16 +1,26 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-from form.models import Question
+from forum.models import Question, Point
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 
 class SimpleTest(TestCase):
+
+    fixtures = ['single']
+
     def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        question = Question
+        user = User.objects.all()[0]
+        point = Point()
+        point.fromuser = user
+        point.amount = 2
+        point.save()
+
+        question = Question();
+        question.user = user
+        question.title = "hi"
+        question.slug = 'something'
+        question.text = 'else'
+        question.save()
+        question.points.add(point)
+        question.save()
+        
+        self.assertEquals(2, question.total_points())

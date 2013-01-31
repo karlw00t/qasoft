@@ -25,3 +25,7 @@ def view_question(request,slug):
     return render(request, 'view_question.html', {
         'question':question,
     })
+
+def upvote(request, question_pk):
+    pass
+

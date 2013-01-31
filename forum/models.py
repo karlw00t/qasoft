@@ -3,13 +3,8 @@ from django.contrib.auth.models import User
 
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
+from taggit.managers import TaggableManager
 # Create your models here.
-
-class Label(models.Model):
-    text = models.CharField(max_length=15)
-
-    def __unicode__(self):
-        return self.text
 
 class Point(models.Model):
     amount = models.IntegerField()
@@ -26,7 +21,6 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.text
-    
 
 class Question(models.Model):
     user = models.ForeignKey(User)
@@ -35,11 +29,15 @@ class Question(models.Model):
     title = models.CharField(max_length=50)
     slug = AutoSlugField(populate_from='title', max_length=50, unique=True, help_text='Unique value for question page URL, created from title.')
     text = models.TextField()
-    labels = models.ManyToManyField(Label, related_name="lable+")   
+    tags = TaggableManager()
 
     def __unicode__(self):
         result = (self.slug, str(self.user))
         return ' - '.join(result)
 
     def total_points(self):
-        return 1
+        points = self.points.all()
+        total = 0
+        for point in points:
+            total = total + point.amount
+        return total
