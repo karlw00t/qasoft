@@ -4,14 +4,13 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
-# Create your models here.
 
 class Point(models.Model):
     fromuser = models.ForeignKey(User)
 
     def __unicode__(self):
-        result = (str(self.amount), str(self.fromuser))
-        return ' - '.join(result)
+        result = (str(self.fromuser))
+        return result
 
 class Answer(models.Model):
     user = models.ForeignKey(User)
@@ -35,8 +34,4 @@ class Question(models.Model):
         return ' - '.join(result)
 
     def total_points(self):
-        points = self.points.all()
-        total = 0
-        for point in points:
-            total = total + point.amount
-        return total
+        return self.points.all().count()

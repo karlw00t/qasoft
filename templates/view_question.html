@@ -3,9 +3,18 @@
     <a href="#" id="upvote">upvote</a>
     <a href="#" id="downvote">downvote</a>
     {{question.title}}<br/>
-    {{question.user}}<br/>
+    {% include "user_block.html" with user=question.user %}
+    <br/>
     {{question.text}}<br/>
     {{question.total_points}}
+    <form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="submit" />
+    </form>
+    {% for answer in question.answers.all %}
+    {{answer.text}}<br>
+    {% endfor %}
     <script type="text/javascript">
         $('#upvote').click(function() { 
             var csrftoken = $.cookie('csrftoken');
