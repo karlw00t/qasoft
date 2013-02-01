@@ -1,4 +1,27 @@
-{{question.title}}<br/>
-{{question.user}}<br/>
-{{question.text}}<br/>
-{{question.total_points}}
+{% extends "base.html" %}
+{% block content %}
+    <a href="#" id="upvote">upvote</a>
+    <a href="#" id="downvote">downvote</a>
+    {{question.title}}<br/>
+    {{question.user}}<br/>
+    {{question.text}}<br/>
+    {{question.total_points}}
+    <script type="text/javascript">
+        $('#upvote').click(function() { 
+            var csrftoken = $.cookie('csrftoken');
+            $.post("/ajax/forum/upvote.json", 
+                { 
+                    question_pk: "{{question.pk}}",
+                    csrfmiddlewaretoken: csrftoken
+                });
+        });
+        $('#downvote').click(function() { 
+            var csrftoken = $.cookie('csrftoken');
+            $.post("/ajax/forum/downvote.json", 
+                { 
+                    question_pk: "{{question.pk}}",
+                    csrfmiddlewaretoken: csrftoken
+                });
+        });
+    </script>
+{% endblock %}

@@ -7,7 +7,6 @@ from taggit.managers import TaggableManager
 # Create your models here.
 
 class Point(models.Model):
-    amount = models.IntegerField()
     fromuser = models.ForeignKey(User)
 
     def __unicode__(self):

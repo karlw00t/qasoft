@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import ajax
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -6,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^ajax/', include('ajax.urls')),
     url(r'^submit_question$', 'forum.views.submit_question', name='home'),
     url(r'^question/(?P<slug>[-\w]+)/$','forum.views.view_question',),
     # url(r'^qasoft/', include('qasoft.foo.urls')),
@@ -16,3 +19,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns += staticfiles_urlpatterns()

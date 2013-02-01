@@ -22,6 +22,7 @@ def endpoint_loader(request, application, model, **kwargs):
     as if it were an ad-hoc endpoint. Alternatively, it will attempt to see if
     there is a ``ModelEndpoint`` for the given ``model``.
     """
+    print 'here'
     if request.method != "POST":
         raise AJAXError(400, _('Invalid HTTP method used.'))
 

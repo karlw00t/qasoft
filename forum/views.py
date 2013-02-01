@@ -21,11 +21,6 @@ def submit_question(request):
 
 def view_question(request,slug):
     question = Question.objects.get(slug__exact=slug)
-    print question.title
     return render(request, 'view_question.html', {
         'question':question,
     })
-
-def upvote(request, question_pk):
-    pass
-
