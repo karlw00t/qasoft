@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import datetime
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
 
 class Point(models.Model):
     fromuser = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True, default=datetime.date.today())
+    updated = models.DateTimeField(auto_now=True, default=datetime.date.today())
 
     def __unicode__(self):
         result = (str(self.fromuser))
@@ -16,6 +19,8 @@ class Answer(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
     points = models.ManyToManyField(Point, related_name="apoint+")   
+    created = models.DateTimeField(auto_now_add=True, default=datetime.date.today())
+    updated = models.DateTimeField(auto_now=True, default=datetime.date.today())
 
     def __unicode__(self):
         return self.text
@@ -31,6 +36,8 @@ class Question(models.Model):
     slug = AutoSlugField(populate_from='title', max_length=50, unique=True, help_text='Unique value for question page URL, created from title.')
     text = models.TextField()
     tags = TaggableManager()
+    created = models.DateTimeField(auto_now_add=True, default=datetime.date.today())
+    updated = models.DateTimeField(auto_now=True, default=datetime.date.today())
 
     def __unicode__(self):
         result = (self.slug, str(self.user))
