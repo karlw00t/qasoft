@@ -6,14 +6,18 @@
     <br/>
     {{question.text}}<br/>
     {{question.total_points}}<br/>
+    {{question.updated}}<br/>
     <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="submit" />
     </form>
     {% for answer in question.answers.all %}
-    <a href="#" id="upvote_answer" pk="{{answer.pk}}">upvote</a><br/>
+        <hr/>
+        <a href="#" id="upvote_answer" pk="{{answer.pk}}">upvote</a><br/>
         {{answer.text}}<br>
+        {{answer.created}}<br>
+        {{ answer.created|date:"D d M Y" }}<br>
         {{answer.total_points}}<br>
     {% endfor %}
     <script type="text/javascript">

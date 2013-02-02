@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from forum.forms import QuestionForm, AnswerForm
 from forum.models import Question
 from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 
 def submit_question(request):
     if request.method == 'POST': 
@@ -12,7 +13,7 @@ def submit_question(request):
             question = form.save(commit=False)
             question.user = request.user
             question.save()
-            return HttpResponseRedirect('/question/' + question.slug) 
+            return HttpResponseRedirect(reverse('forum.views.view_question', kwargs={'slug':question.slug}))
     else:
         form = QuestionForm() 
 

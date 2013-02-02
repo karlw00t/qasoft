@@ -9,8 +9,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^ajax/', include('ajax.urls')),
-    url(r'^question/list$', 'forum.views.list_question', name='home'),
-    url(r'^question/submit$', 'forum.views.submit_question', name='home'),
+    url(r'^question/list$', 'forum.views.list_question'),
+    url(r'^question/submit$', 'forum.views.submit_question'),
     url(r'^question/view/(?P<slug>[-\w]+)/$','forum.views.view_question',),
     url(r'^admin/', include(admin.site.urls)),
 )
