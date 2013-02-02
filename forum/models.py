@@ -6,13 +6,24 @@ from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
 
+from django.db.models import Count
+
+def userPoint(user):
+    result = 0
+    for question in Question.objects.filter(user__id__exact=user.id):
+        result=+question.points.count()
+    for answer in Answer.objects.filter(user__id__exact=user.id):
+        result=+answer.points.count()
+    return result
+
+
 class Point(models.Model):
     fromuser = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True, default=datetime.date.today())
     updated = models.DateTimeField(auto_now=True, default=datetime.date.today())
 
     def __unicode__(self):
-        result = (str(self.fromuser))
+        result = (str(self.frommember))
         return result
 
 class Answer(models.Model):

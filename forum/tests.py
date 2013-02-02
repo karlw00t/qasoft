@@ -1,4 +1,4 @@
-from forum.models import Question, Point
+from forum.models import Question, Point, userPoint
 from django.contrib.auth.models import User
 from django.test import TestCase
 import json
@@ -42,3 +42,27 @@ class SimpleTest(TestCase):
 
         response = self.client.post('/ajax/forum/upvote_question.json', {'question_pk': question.pk})
         self.assertEquals(response.status_code, 409)
+
+    def test_user_points(self):
+        josh = User.objects.all()[0]
+
+        question = Question();
+        question.user = josh
+        question.title = "hi"
+        question.slug = 'something'
+        question.text = 'else'
+        question.save()
+
+        point = Point()
+        point.fromuser = josh
+        point.save()
+        question.points.add(point)
+
+        user = User()
+        user.save()
+        point = Point()
+        point.fromuser = user
+        point.save()
+        question.points.add(point)
+
+        self.assertEquals(2, userPoint(josh))
