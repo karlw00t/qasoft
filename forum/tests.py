@@ -36,9 +36,9 @@ class SimpleTest(TestCase):
         question.text = 'else'
         question.save()
 
-        response = self.client.post('/ajax/forum/upvote.json', {'question_pk': question.pk})
+        response = self.client.post('/ajax/forum/upvote_question.json', {'question_pk': question.pk})
         json_response = json.loads(response.content)
         self.assertTrue(json_response['success'])
 
-        response = self.client.post('/ajax/forum/upvote.json', {'question_pk': question.pk})
+        response = self.client.post('/ajax/forum/upvote_question.json', {'question_pk': question.pk})
         self.assertEquals(response.status_code, 409)
