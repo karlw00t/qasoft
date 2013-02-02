@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <a href="#" id="upvote">upvote</a><br/>
+    <a href="#" id="upvote_question">upvote</a><br/>
     {{question.title}}<br/>
     {% include "user_block.html" with user=question.user %}
     <br/>
@@ -17,7 +17,7 @@
         {{answer.total_points}}<br>
     {% endfor %}
     <script type="text/javascript">
-        $('#upvote').click(function() { 
+        $('#upvote_question').click(function() { 
             var csrftoken = $.cookie('csrftoken');
             $.post("/ajax/forum/upvote_question.json", 
                 { 
