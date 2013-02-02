@@ -20,6 +20,9 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.text
 
+    def total_points(self):
+        return self.points.all().count()
+
 class Question(models.Model):
     user = models.ForeignKey(User)
     answers = models.ManyToManyField(Answer, related_name="answer+", blank=True, null=True)

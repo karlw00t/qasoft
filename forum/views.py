@@ -20,6 +20,15 @@ def submit_question(request):
         'form': form,
     })
 
+def compare_question(left, right):
+    return cmp(right.total_points(), left.total_points())
+
+def list_question(request):
+    questions = sorted(Question.objects.all(), compare_question)
+    return render(request, 'list_question.html', {
+        'questions':questions,
+    })
+
 def view_question(request,slug):
     question = get_object_or_404(Question, slug__exact=slug)
     if request.method == 'POST':

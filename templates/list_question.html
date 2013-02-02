@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for question in questions %}
+    {{question.total_points}} <a href="{%url forum.views.view_question question.slug %}">{{ question.title }}</a><br/>
+    {% endfor %}
+{% endblock %}
