@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <a href="#" id="upvote_question">upvote</a><br/>
-    <h1>{{question.title}}</h1>
-    {% include "user_block.html" with user=question.user %}
-    <br/>
-    {{question.text}}<br/>
-    {{question.total_points}}<br/>
-    {{question.updated}}<br/>
+    <div class="question-block">
+        {% include "question_block.html" with question=question %}
+        posted by {% include "user_block.html" with user=question.user %}
+        <br/>
+    </div>
     <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="submit" />
     </form>
     {% for answer in question.answers.all %}
-        <hr/>
-        <a href="#" id="upvote_answer" pk="{{answer.pk}}">upvote</a><br/>
-        {{answer.text}}<br>
-        {{answer.created}}<br>
-        {{ answer.created|date:"D d M Y" }}<br>
-        {{answer.total_points}}<br>
-        delete<br>
-
+        <div class="answer-block">
+            {% include "answer_block.html" with answer=answer %}
+        </div>
     {% endfor %}
     <script type="text/javascript">
         $(".alert").alert()
@@ -39,6 +32,19 @@
                 { 
                     answer_pk: pk,
                     csrfmiddlewaretoken: csrftoken
+                });
+        });
+        $('#delete_answer').click(function(e) { 
+            e.preventDefault();
+            var csrftoken = $.cookie('csrftoken');
+            var pk = $(this).attr('pk')
+            var link = $(this)
+            $.post("/ajax/forum/delete_answer.json", 
+                { 
+                    answer_pk: pk,
+                    csrfmiddlewaretoken: csrftoken
+                    }, function(data, textStatus, jqXHR) {
+                    link.parents(".answer-block").remove()
                 });
         });
     </script>
