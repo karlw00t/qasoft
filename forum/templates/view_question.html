@@ -16,22 +16,37 @@
         </div>
     {% endfor %}
     <script type="text/javascript">
-        $(".alert").alert()
-        $('#upvote_question').click(function() { 
+        $('#upvote_question').click(function(e) { 
+            e.preventDefault();
             var csrftoken = $.cookie('csrftoken');
+            var link = $(this)
             $.post("/ajax/forum/upvote_question.json", 
                 { 
                     question_pk: "{{question.pk}}",
                     csrfmiddlewaretoken: csrftoken
+                }, function(data) {
+                    pointspan = link.parents(".point-block").children(".points")
+                    var points = parseInt(pointspan.html())
+                    delta = data['data']['delta']
+                    pointspan.html(points + delta)
+
                 });
         });
-        $('#upvote_answer').click(function() { 
+        $('#upvote_answer').click(function(e) { 
+            e.preventDefault();
             var csrftoken = $.cookie('csrftoken');
             var pk = $(this).attr('pk')
+            var link = $(this)
             $.post("/ajax/forum/upvote_answer.json", 
                 { 
                     answer_pk: pk,
                     csrfmiddlewaretoken: csrftoken
+                }, function(data) {
+                    pointspan = link.parents(".point-block").children(".points")
+                    var points = parseInt(pointspan.html())
+                    delta = data['data']['delta']
+                    pointspan.html(points + delta)
+
                 });
         });
         $('#delete_answer').click(function(e) { 

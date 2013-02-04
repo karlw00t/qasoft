@@ -23,7 +23,7 @@ class Point(models.Model):
     updated = models.DateTimeField(auto_now=True, default=datetime.date.today())
 
     def __unicode__(self):
-        result = (str(self.frommember))
+        result = (str(self.fromuser))
         return result
 
 class Answer(models.Model):

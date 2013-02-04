@@ -39,9 +39,15 @@ class SimpleTest(TestCase):
         response = self.client.post('/ajax/forum/upvote_question.json', {'question_pk': question.pk})
         json_response = json.loads(response.content)
         self.assertTrue(json_response['success'])
-
+        self.assertTrue(json_response['data']['delta'], 1)
+        self.assertEquals(1, Question.objects.all().count())
+        
         response = self.client.post('/ajax/forum/upvote_question.json', {'question_pk': question.pk})
-        self.assertEquals(response.status_code, 409)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response['success'])
+        self.assertTrue(json_response['data']['delta'], -1)
+        print Point.objects.all()
+        self.assertEquals(0, Point.objects.all().count())
 
     def test_user_points(self):
         josh = User.objects.all()[0]

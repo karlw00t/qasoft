@@ -1,6 +1,5 @@
 <hr/>
-<a href="#" id="upvote_answer" pk="{{answer.pk}}">upvote</a>
-points <span class="points">{{answer.total_points}}</span><br>
+<div class="point-block"><a href="#" id="upvote_answer" pk="{{answer.pk}}">upvote</a> points <span class="points">{{answer.total_points}}</span></div><br>
 {{answer.text}}<br>
 {{answer.created|date:"D d M Y" }}<br>
 <a href="#" id="delete_answer" pk={{answer.pk}}>delete</a><br>
