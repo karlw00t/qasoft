@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^ajax/', include('ajax.urls')),
     url(r'^question/', include('forum.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('registration.backends.simpleinvitation.urls'), ),
 )
 
 urlpatterns += staticfiles_urlpatterns()
