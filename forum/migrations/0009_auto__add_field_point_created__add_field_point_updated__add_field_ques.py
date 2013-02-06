@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+from django.utils import timezone
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -10,32 +11,32 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Point.created'
         db.add_column('forum_point', 'created',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now_add=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now_add=True, blank=True),
                       keep_default=False)
 
         # Adding field 'Point.updated'
         db.add_column('forum_point', 'updated',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now=True, blank=True),
                       keep_default=False)
 
         # Adding field 'Question.created'
         db.add_column('forum_question', 'created',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now_add=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now_add=True, blank=True),
                       keep_default=False)
 
         # Adding field 'Question.updated'
         db.add_column('forum_question', 'updated',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now=True, blank=True),
                       keep_default=False)
 
         # Adding field 'Answer.created'
         db.add_column('forum_answer', 'created',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now_add=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now_add=True, blank=True),
                       keep_default=False)
 
         # Adding field 'Answer.updated'
         db.add_column('forum_answer', 'updated',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 2, 0, 0), auto_now=True, blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(default=timezone.now(), auto_now=True, blank=True),
                       keep_default=False)
 
 
