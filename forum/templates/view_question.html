@@ -5,6 +5,7 @@
         posted by {% include "user_block.html" with user=question.user %}
         <br/>
     </div>
+    <hr/>
     <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
