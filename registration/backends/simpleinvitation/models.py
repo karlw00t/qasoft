@@ -5,10 +5,7 @@ from django.contrib.auth.models import User
 
 class InvitationCode(models.Model):
     """Invitation code model"""
-    code = models.CharField(blank=True, max_length=5, unique=True,
-        verbose_name=_(u"Invitation code"))
-    is_used = models.BooleanField(default=False,
-        verbose_name=_(u"Is code used?"))
+    code = models.CharField(blank=True, max_length=5, unique=True, verbose_name=_(u"Invitation code"))
+    is_used = models.BooleanField(default=False, verbose_name=_(u"Is code used?"))
     user = models.ForeignKey(User, blank=True, null=True, related_name='user_code')
-    used_date = models.DateTimeField(blank=True, null=True, auto_now_add=True,
-        verbose_name=_(u"Used on"))
+    used_date = models.DateTimeField(blank=True, null=True, auto_now_add=True, verbose_name=_(u"Used on")) 

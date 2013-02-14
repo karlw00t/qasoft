@@ -120,8 +120,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'websettings',
     'registration',
     'registration.backends.simpleinvitation',
+    'account',
     'forum',
     'south',
     'taggit',
@@ -130,6 +132,13 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+WEBSETTINGS = [
+        {
+            'name':'this',
+            'help':'put text here, itll be sweet',
+        },
+    ]
+        
 ACCOUNT_ACTIVATION_DAYS = 7
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
