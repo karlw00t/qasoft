@@ -11,19 +11,21 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        'NAME': 'website.db',            # Or path to database file if using sqlite3.
-#        'USER': '',                      # Not used with sqlite3.
-#        'PASSWORD': '',                  # Not used with sqlite3.
-#        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-#        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-#    }
-#}
-DATABASES = {}
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'website.db',            # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+if os.environ.get('MYSITE_PRODUCTION', False):
+    DEBUG = False
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -84,7 +86,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '!#&amp;w8d+%pqpp%q)4f@xmrjb8ybpvn8u#i$zrhg0+(@*x%8pj-0'
+SECRET_KEY = os.environ.get('SECRECT_KEY', '!#&amp;w8d+%pqpp%q)4f@xmrjb8ybpvn8u#i$zrhg0+(@*x%8pj-0'):
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
