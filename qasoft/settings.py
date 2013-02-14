@@ -23,7 +23,7 @@ DATABASES = {
 }
 
 if os.environ.get('MYSITE_PRODUCTION', False):
-    DEBUG = False
+    #DEBUG = False
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
 
