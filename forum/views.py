@@ -5,7 +5,9 @@ from forum.forms import QuestionForm, AnswerForm
 from forum.models import Question
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def submit_question(request):
     if request.method == 'POST': 
         form = QuestionForm(request.POST)
@@ -24,12 +26,14 @@ def submit_question(request):
 def compare_question(left, right):
     return cmp(right.total_points(), left.total_points())
 
+@login_required
 def list_question(request):
     questions = sorted(Question.objects.all(), compare_question)
     return render(request, 'list_question.html', {
         'questions':questions,
     })
 
+@login_required
 def view_question(request,slug):
     question = get_object_or_404(Question, slug__exact=slug)
     if request.method == 'POST':
