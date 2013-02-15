@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.simpleinvitation.urls'), ),
 )
 
-urlpatterns += staticfiles_urlpatterns()
+if not settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
