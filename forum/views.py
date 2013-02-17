@@ -15,6 +15,9 @@ def submit_question(request):
             question = form.save(commit=False)
             question.user = request.user
             question.save()
+            for tag in form.cleaned_data['tags']:
+                question.tags.add(tag)
+            question.save()
             return HttpResponseRedirect(reverse('forum.views.view_question', kwargs={'slug':question.slug}))
     else:
         form = QuestionForm() 
